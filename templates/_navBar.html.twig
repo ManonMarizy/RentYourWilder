@@ -8,15 +8,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         {% if  is_granted('ROLE_USER') %}
-            <a href=""><i class="fas fa-shopping-basket"></i></a>
+            <a href=""><i class="fas fa-shopping-basket fa-2x icon-profile-mobile ml-4"></i></a>
             <div class="dropdown show icon-profile-mobile ml-4">
-                <i class="fas fa-user-circle fa-2x"></i>
+                <div role="button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">
+                    <i class="fas fa-user-circle fa-2x"></i>
+                </div>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="">
                         <i class="far fa-address-card"></i>
                         Compte
                     </a>
-                    <a class="dropdown-item" href="">
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">
                         <i class="fas fa-sign-out-alt"></i>
                         Déconnexion
                     </a>
@@ -27,7 +30,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav d-flex justify-content-end w-100 ul-navbar">
             {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item ml-4">
+                <li class="nav-item mr-4 ml-4">
                     <a class="nav-link" href="" target="_blank">Administrateur</a>
                 </li>
             {% endif %}
@@ -36,19 +39,22 @@
                     <a class="nav-link" href="{{ path('user_register') }}">Inscription</a>
                 </li>
                 <li class="nav-item ml-4">
-                    <a class="nav-link" href="">Connexion</a>
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                 </li>
             {% endif %}
             {% if  is_granted('ROLE_USER') %}
-                <a href=""><i class="fas fa-shopping-basket"></i></a>
+                <a href=""><i class="fas fa-shopping-basket fa-2x icon-profile-desktop"></i></a>
                 <li class="dropdown show ml-4 icon-profile-desktop">
-                    <i class="fas fa-user-circle fa-2x"></i>
+                    <div role="button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                         aria-expanded="false">
+                        <i class="fas fa-user-circle fa-2x"></i>
+                    </div>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="">
                             <i class="far fa-address-card"></i>
                             Compte
                         </a>
-                        <a class="dropdown-item" href="">
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">
                             <i class="fas fa-sign-out-alt"></i>
                             Déconnexion
                         </a>

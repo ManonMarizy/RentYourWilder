@@ -4,3 +4,18 @@
 body {
     font-family: 'Sriracha', cursive;
 }
+
+/* navbar */
+.icon-profile-desktop {
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    .icon-profile-desktop {
+        display: initial;
+    }
+
+    .icon-profile-mobile {
+        display: none;
+    }
+}
