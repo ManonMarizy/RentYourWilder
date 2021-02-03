@@ -25,24 +25,12 @@ class Skill
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Wilder::class, inversedBy="hasSkills")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $wilder;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Wilder::class, mappedBy="skill", orphanRemoval=true)
-     */
-    private $hasWilders;
-
-    /**
      * @ORM\OneToMany(targetEntity=WilderHasSkill::class, mappedBy="skills")
      */
     private $wilderHasSkills;
 
     public function __construct()
     {
-        $this->hasWilders = new ArrayCollection();
         $this->wilderHasSkills = new ArrayCollection();
     }
 
@@ -71,36 +59,6 @@ class Skill
     public function setWilder(?Wilder $wilder): self
     {
         $this->wilder = $wilder;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Wilder[]
-     */
-    public function getHasWilders(): Collection
-    {
-        return $this->hasWilders;
-    }
-
-    public function addHasWilder(Wilder $hasWilder): self
-    {
-        if (!$this->hasWilders->contains($hasWilder)) {
-            $this->hasWilders[] = $hasWilder;
-            $hasWilder->setSkill($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHasWilder(Wilder $hasWilder): self
-    {
-        if ($this->hasWilders->removeElement($hasWilder)) {
-            // set the owning side to null (unless already changed)
-            if ($hasWilder->getSkill() === $this) {
-                $hasWilder->setSkill(null);
-            }
-        }
 
         return $this;
     }
