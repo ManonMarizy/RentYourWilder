@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+    <div class="ml-2 mr-2 mt-5">
+        <div class="mb-4">
+            <h1 class="text-center mb-4">Liste des wilders</h1>
+            <div>
+                <a href="{{ path('wilder_new') }}" class="btn btn-primary" role="button">Ajouter un wilder</a>
+            </div>
+        </div>
+
+
+        <table class="table -scroll">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Loué</th>
+                <th>Activé</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for wilder in wilders %}
+                <tr>
+                    <td>{{ wilder.id }}</td>
+                    <td>{{ wilder.name }}</td>
+                    <td>{{ wilder.isAvailable ? 'No' : 'Yes' }}</td>
+                    <td>{{ wilder.isEnable ? 'Yes' : 'No' }}</td>
+                    <td>
+                        <a href="{{ path('wilder_show', {'id': wilder.id}) }}" class="btn btn-primary">show</a>
+                        <a href="{{ path('wilder_edit', {'id': wilder.id}) }}" class="btn btn-success mt-2 mt-sm-0">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
