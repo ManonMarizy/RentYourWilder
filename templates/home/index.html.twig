@@ -3,13 +3,16 @@
 {% block body %}
     <div class="ml-2 mr-2">
         <h1 class="text-center mt-5 mb-5">Besoin de louer un wilder? Tu es au bon endroit !</h1>
-        <h2>Les wilders disponibles :</h2>
+        <h2 class="text-center">Les wilders disponibles :</h2>
         <div class="d-flex flex-wrap justify-content-center">
             {% for wilder in wilders %}
                 {% if wilder.isAvailable == true %}
                     <div class="card mt-3 mr-sm-3" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title">{{ wilder.name }}</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">{{ wilder.name }}</h5>
+                                <a href="{{ path('cart_add', {id: wilder.id }) }}" class="btn btn-success"><i class="fas fa-shopping-basket fa-1x"></i></a>
+                            </div>
                             <ul>
                                 {% for skills in wilder.wilderHasSkills %}
                                     <li class="list-unstyled">
@@ -45,7 +48,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <h2 class="mt-5">Les wilders déjà loués :</h2>
+        <h2 class="mt-5 text-center">Les wilders déjà loués :</h2>
         <div class="d-flex flex-wrap justify-content-center">
             {% for wilder in wilders %}
                 {% if wilder.isAvailable == false %}

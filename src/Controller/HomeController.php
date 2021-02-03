@@ -20,7 +20,6 @@ class HomeController extends AbstractController
                 'isEnable' => true
             ]);
 
-        //dd($wilders);
         return $this->render('home/index.html.twig', [
             'wilders' => $wilders
         ]);
