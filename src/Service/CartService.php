@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Repository\WilderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -12,12 +14,18 @@ class CartService
     protected SessionInterface $session;
     protected WilderRepository $wilderRepository;
     protected EntityManagerInterface $emi;
+    protected UserRepository $userRepository;
 
-    public function __construct(SessionInterface $session, WilderRepository $wilderRepository, EntityManagerInterface $emi)
-    {
+    public function __construct(
+        SessionInterface $session,
+        WilderRepository $wilderRepository,
+        EntityManagerInterface $emi,
+        UserRepository $userRepository
+    ) {
         $this->session = $session;
         $this->wilderRepository = $wilderRepository;
         $this->emi = $emi;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -29,7 +37,7 @@ class CartService
             'id' => $id
         ]);
 
-        if(!$wilder->getIsAvailable() || !$wilder->getIsEnable()) {
+        if(!$wilder->getIsAvailable() || !$wilder->getIsEnable() || !$wilder) {
             throw new AccessDeniedHttpException();
         }
 
@@ -75,14 +83,19 @@ class CartService
     }
 
     /**
-     * @param $cartWithData
+     * @param array $cartWithData
+     * @param int $id
      */
-    public function valideCart($cartWithData)
+    public function valideCart(array $cartWithData, int $id)
     {
+
         $cart = $this->session->get('cart', []);
         foreach ($cartWithData as $cartData) {
             foreach ($cartData as $wilder) {
                 $wilder->setIsAvailable(false);
+                $wilder->setUser($this->userRepository->findOneBy([
+                    'id' => $id
+                ]));
                 $this->emi->flush();
                 unset($cart[$wilder->getId()]);
             }

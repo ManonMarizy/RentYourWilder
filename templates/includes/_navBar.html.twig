@@ -8,7 +8,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         {% if  is_granted('ROLE_USER') %}
-            <a href="{{ path('cart_index') }}"><i class="fas fa-shopping-basket fa-2x icon-profile-mobile ml-4"></i></a>
+            <a href="{{ path('cart_index') }}" class="icon-profile-mobile">
+                <i class="fas fa-shopping-basket fa-2x ml-4"></i>{{ cartWithData |length }}
+            </a>
+
+
             <div class="dropdown show icon-profile-mobile ml-4">
                 <div role="button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                      aria-expanded="false">
@@ -43,7 +47,9 @@
                 </li>
             {% endif %}
             {% if  is_granted('ROLE_USER') %}
-                <a href="{{ path('cart_index') }}"><i class="fas fa-shopping-basket fa-2x icon-profile-desktop"></i></a>
+                <a href="{{ path('cart_index') }}" class=" icon-profile-desktop">
+                    <i class="fas fa-shopping-basket fa-2x"></i>{{ cartWithData |length }}
+                </a>
                 <li class="dropdown show ml-4 icon-profile-desktop">
                     <div role="button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                          aria-expanded="false">

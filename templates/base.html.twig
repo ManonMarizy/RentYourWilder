@@ -10,7 +10,9 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block header %}{% include '_navBar.html.twig' %}{% endblock %}
+        {% block header %}
+            {{ render(controller('App\\Controller\\HomeController::addNavBar')) }}
+        {% endblock %}
 
         {% for label, messages in app.flashes %}
             {% for message in messages %}

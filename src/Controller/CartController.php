@@ -6,6 +6,7 @@ use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -16,10 +17,14 @@ class CartController extends AbstractController
     /**
      * @Route("/", name="index")
      * @param CartService $cartService
-     * @return Response
+     * @return Response|AccessDeniedHttpException
      */
-    public function index(CartService $cartService): Response
+    public function index(CartService $cartService)
     {
+        $user = $this->getUser();
+        if(!$user) {
+            return new AccessDeniedHttpException();
+        }
         return $this->render('cart/index.html.twig', [
             'wilders' => $cartService->getFullCart()
         ]);
@@ -29,10 +34,14 @@ class CartController extends AbstractController
      * @Route("/ajout/{id}", name="add")
      * @param $id
      * @param CartService $cartService
-     * @return RedirectResponse
+     * @return RedirectResponse|AccessDeniedHttpException
      */
-    public function add($id, CartService $cartService): RedirectResponse
+    public function add($id, CartService $cartService)
     {
+        $user = $this->getUser();
+        if(!$user) {
+            return new AccessDeniedHttpException();
+        }
         $cartService->add($id);
         $this->addFlash('success', 'Le wilder a été ajouté au panier !');
         return $this->redirectToRoute("home");
@@ -42,10 +51,14 @@ class CartController extends AbstractController
      * @Route("/remove/{id}", name="remove")
      * @param $id
      * @param CartService $cartService
-     * @return RedirectResponse
+     * @return RedirectResponse|AccessDeniedHttpException
      */
-    public function remove($id, CartService $cartService): RedirectResponse
+    public function remove($id, CartService $cartService)
     {
+        $user = $this->getUser();
+        if(!$user) {
+            return new AccessDeniedHttpException();
+        }
         $cartService->remove($id);
         return $this->redirectToRoute("cart_index");
     }
@@ -53,11 +66,15 @@ class CartController extends AbstractController
     /**
      * @Route("/validation", name="validate")
      * @param CartService $cartService
-     * @return RedirectResponse
+     * @return RedirectResponse|AccessDeniedHttpException
      */
     public function valideCart(CartService $cartService)
     {
-        $cartService->valideCart($cartService->getFullCart());
+        $user = $this->getUser();
+        if(!$user) {
+            return new AccessDeniedHttpException();
+        }
+        $cartService->valideCart($cartService->getFullCart(), $user->getId());
 
         return $this->redirectToRoute("cart_index");
     }
