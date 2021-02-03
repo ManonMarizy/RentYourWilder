@@ -33,7 +33,7 @@
             {% endif %}
             {% if not is_granted('ROLE_USER') %}
                 <li class="nav-item ml-4">
-                    <a class="nav-link" href="">Inscription</a>
+                    <a class="nav-link" href="{{ path('user_register') }}">Inscription</a>
                 </li>
                 <li class="nav-item ml-4">
                     <a class="nav-link" href="">Connexion</a>

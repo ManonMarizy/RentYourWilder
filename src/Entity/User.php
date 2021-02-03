@@ -16,28 +16,38 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\ManyToOne(targetEntity=Wilder::class, inversedBy="userId")
      */
-    private $wilder;
+    private Wilder $wilder;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":0})
+     */
+    private bool $isActivate;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $token;
 
     public function getId(): ?int
     {
@@ -117,14 +127,42 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getWilder(): ?Wilder
+    /**
+     * @return Wilder
+     */
+    public function getWilder(): Wilder
     {
         return $this->wilder;
     }
 
-    public function setWilder(?Wilder $wilder): self
+    /**
+     * @param Wilder $wilder
+     */
+    public function setWilder(Wilder $wilder): void
     {
         $this->wilder = $wilder;
+    }
+
+    public function getIsActivate(): ?bool
+    {
+        return $this->isActivate;
+    }
+
+    public function setIsActivate(bool $isActivate): self
+    {
+        $this->isActivate = $isActivate;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
