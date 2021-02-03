@@ -17,22 +17,22 @@ class Wilder
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isAvailable;
+    private bool $isAvailable;
 
     /**
      * @ORM\Column(type="boolean")
@@ -40,29 +40,17 @@ class Wilder
     private $isEnable;
 
     /**
-     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="wilder", orphanRemoval=true)
-     */
-    private $hasSkills;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Skill::class, inversedBy="hasWilders")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $skill;
-
-    /**
      * @ORM\OneToMany(targetEntity=WilderHasSkill::class, mappedBy="wilders", orphanRemoval=true)
      */
-    private $wilderHasSkills;
+    private Collection $wilderHasSkills;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="wilder")
      */
-    private $userId;
+    private Collection $userId;
 
     public function __construct()
     {
-        $this->hasSkills = new ArrayCollection();
         $this->wilderHasSkills = new ArrayCollection();
         $this->userId = new ArrayCollection();
     }
@@ -84,16 +72,20 @@ class Wilder
         return $this;
     }
 
-    public function getDescription(): ?string
+    /**
+     * @return string
+     */
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
     public function getIsAvailable(): ?bool
@@ -122,48 +114,6 @@ class Wilder
     public function setIsEnable($isEnable): void
     {
         $this->isEnable = $isEnable;
-    }
-
-    /**
-     * @return Collection|Skill[]
-     */
-    public function getHasSkills(): Collection
-    {
-        return $this->hasSkills;
-    }
-
-    public function addHasSkill(Skill $hasSkill): self
-    {
-        if (!$this->hasSkills->contains($hasSkill)) {
-            $this->hasSkills[] = $hasSkill;
-            $hasSkill->setWilder($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHasSkill(Skill $hasSkill): self
-    {
-        if ($this->hasSkills->removeElement($hasSkill)) {
-            // set the owning side to null (unless already changed)
-            if ($hasSkill->getWilder() === $this) {
-                $hasSkill->setWilder(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getSkill(): ?Skill
-    {
-        return $this->skill;
-    }
-
-    public function setSkill(?Skill $skill): self
-    {
-        $this->skill = $skill;
-
-        return $this;
     }
 
     /**

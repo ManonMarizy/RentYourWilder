@@ -15,40 +15,44 @@ class WilderHasSkill
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Wilder::class, inversedBy="wilderHasSkills")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $wilders;
+    private Wilder $wilders;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Skill::class, inversedBy="wilderHasSkills")
+     * @ORM\ManyToOne(targetEntity=Skill::class, inversedBy="wilderHasSkills", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $skills;
+    private Skill $skills;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $rate;
+    private int $rate;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getWilders(): ?Wilder
+    /**
+     * @return Wilder
+     */
+    public function getWilders(): Wilder
     {
         return $this->wilders;
     }
 
-    public function setWilders(?Wilder $wilders): self
+    /**
+     * @param Wilder $wilders
+     */
+    public function setWilders(Wilder $wilders): void
     {
         $this->wilders = $wilders;
-
-        return $this;
     }
 
     public function getSkills(): ?Skill

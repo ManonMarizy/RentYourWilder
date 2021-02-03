@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="ml-2 mr-2">
+        <h1 class="text-center mt-5 mb-5">Besoin de louer un wilder? Tu es au bon endroit !</h1>
+        <h2>Les wilders disponibles :</h2>
+        <div class="d-flex flex-wrap justify-content-center">
+            {% for wilder in wilders %}
+                {% if wilder.isAvailable == true %}
+                    <div class="card mt-3 mr-sm-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ wilder.name }}</h5>
+                            <ul>
+                                {% for skills in wilder.wilderHasSkills %}
+                                    <li class="list-unstyled">
+                                        {{ skills.skills.name }}:
+                                        <span class="d-flex">
+                                            {% if skills.rate != 0 %}
+                                                {% for i in 0..skills.rate %}
+                                                    {% if i!= 0 %}
+                                                        <i class="fas fa-star"></i>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for i in 0..(5 - skills.rate) %}
+                                                    {% if i != 0 %}
+                                                        <div class="d-flex align-items-center">
+                                                            <i class="far fa-star"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                {% for i in 1..5 %}
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="far fa-star"></i>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <a href="#" class="btn btn-primary">Détails</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <h2 class="mt-5">Les wilders déjà loués :</h2>
+        <div class="d-flex flex-wrap justify-content-center">
+            {% for wilder in wilders %}
+                {% if wilder.isAvailable == false %}
+                    <div class="card mt-3 mr-sm-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ wilder.name }}</h5>
+                            <ul>
+                                {% for skills in wilder.wilderHasSkills %}
+                                    <li class="list-unstyled">
+                                        {{ skills.skills.name }}:
+                                        <span class="d-flex">
+                                            {% if skills.rate != 0 %}
+                                                {% for i in 0..skills.rate %}
+                                                    {% if i!= 0 %}
+                                                        <i class="fas fa-star"></i>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for i in 0..(5 - skills.rate) %}
+                                                {% if i != 0 %}
+                                                    <div class="d-flex align-items-center">
+                                                            <i class="far fa-star"></i>
+                                                        </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% else %}
+                                                {% for i in 1..5 %}
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="far fa-star"></i>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <a href="#" class="btn btn-primary">Détails</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
