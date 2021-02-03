@@ -72,7 +72,7 @@ class UserController extends AbstractController
                 'success',
                 'Un email pour valider votre inscription vient de vous être envoyé !'
             );
-            return $this->redirectToRoute("login");
+            return $this->redirectToRoute("app_login");
         }
         return $this->render('user/register.html.twig', [
             'form' => $form->createView()
