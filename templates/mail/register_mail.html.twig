@@ -1,0 +1,12 @@
+{% extends 'mail/base_mail.html.twig' %}
+
+{% block title %}
+    Inscription sur des Quizz & TP
+{% endblock title %}
+
+{% block body %}
+    <h1>Inscription sur Loue ton Wilder</h1>
+    <p>Bienvenue,</p>
+    <p>Cliquez sur le lien ci-dessous pour finaliser votre inscription:</p>
+    <a href="{{ url('user_register_validation', {token: user.token}) }}">Validez votre inscription</a>
+{% endblock body %}
