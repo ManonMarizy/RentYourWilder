@@ -176,4 +176,26 @@ class User implements UserInterface
         $this->wilders = $wilders;
     }
 
+    public function addWilder(Wilder $wilder): self
+    {
+        if (!$this->wilders->contains($wilder)) {
+            $this->wilders[] = $wilder;
+            $wilder->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWilder(Wilder $wilder): self
+    {
+        if ($this->wilders->removeElement($wilder)) {
+            // set the owning side to null (unless already changed)
+            if ($wilder->getUser() === $this) {
+                $wilder->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

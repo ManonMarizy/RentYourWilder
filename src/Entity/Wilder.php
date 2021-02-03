@@ -45,7 +45,7 @@ class Wilder
     private Collection $wilderHasSkills;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="wilderId")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="wilders")
      */
     private User $user;
 
