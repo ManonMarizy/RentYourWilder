@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+    {{ form_row(form.name,  {'label': "Nom", 'attr': {'class': 'w-100 mb-3 rounded form-input-border'}}) }}
+    {{ form_row(form.description,  {'label': "Description", 'attr': {'class': 'w-100 mb-3 rounded'}}) }}
+    <div class="d-flex flex-column">
+        <div>
+            {{ form_row(form.isAvailable, {'label': "Disponible"}) }}
+        </div>
+        <div>
+            {{ form_row(form.isEnable, {'label': "Activé"}) }}
+        </div>
+    </div>
+    <button class="btn btn-success">Sauvegarder</button>
+{{ form_end(form) }}
