@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Wilder{% endblock %}
+
+{% block body %}
+    <h1>Create new Wilder</h1>
+
+    {{ include('wilder/_form.html.twig') }}
+
+    <a href="{{ path('wilder_index') }}">back to list</a>
+{% endblock %}

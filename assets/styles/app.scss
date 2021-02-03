@@ -1,6 +1,21 @@
 @import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
 
 body {
-    background-color: lightgray;
+    font-family: 'Sriracha', cursive;
 }
 
+/* navbar */
+.icon-profile-desktop {
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    .icon-profile-desktop {
+        display: initial;
+    }
+
+    .icon-profile-mobile {
+        display: none;
+    }
+}

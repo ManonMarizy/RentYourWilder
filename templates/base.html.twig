@@ -10,6 +10,22 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% block header %}{% include '_navBar.html.twig' %}{% endblock %}
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                {% if label == 'success' %}
+                    <div class="alert alert-success text-center" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                {% if label == 'error' %}
+                    <div class="alert alert-danger text-center" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
         {% block body %}{% endblock %}
 
         {{ encore_entry_script_tags('app') }}
