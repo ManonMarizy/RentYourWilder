@@ -2,12 +2,17 @@
 
 {% block body %}
     <div class="ml-2 mr-2">
-        <h1 class="text-center mt-5 mb-5">Besoin de louer un wilder? Tu es au bon endroit !</h1>
+        <div class="d-flex align-items-center justify-content-center">
+            <h1 class="text-center mt-5 mb-5 mr-3">Besoin de louer un wilder? Tu es au bon endroit !</h1>
+            <div>
+                <img class="img-home" src="{{ asset('build/images/commerce-icon.png') }}" alt="commerce-icon">
+            </div>
+        </div>
         <h2 class="text-center">Les wilders disponibles :</h2>
         <div class="d-flex flex-wrap justify-content-center">
             {% for wilder in wilders %}
                 {% if wilder.isAvailable == true %}
-                    <div class="card mt-3 mr-sm-3" style="width: 18rem;">
+                    <div class="card mt-3 mr-sm-3 white-background" style="width: 18rem;">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">{{ wilder.name }}</h5>
@@ -58,7 +63,7 @@
         <div class="d-flex flex-wrap justify-content-center">
             {% for wilder in wilders %}
                 {% if wilder.isAvailable == false %}
-                    <div class="card mt-3 mr-sm-3" style="width: 18rem;">
+                    <div class="card mt-3 mr-sm-3 white-background" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">{{ wilder.name }}</h5>
                             <ul>

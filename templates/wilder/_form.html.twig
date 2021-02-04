@@ -1,7 +1,8 @@
 {{ form_start(form) }}
     {{ form_row(form.name,  {'label': "Nom", 'attr': {'class': 'w-100 mb-3 rounded form-input-border'}}) }}
     {{ form_row(form.description,  {'label': "Description", 'attr': {'class': 'w-100 mb-3 rounded'}}) }}
-    <div class="d-flex flex-column">
+    {{ form_row(form.wilderHasSkills) }}
+    <div class="d-flex flex-column mt-3">
         <div>
             {{ form_row(form.isAvailable, {'label': "Disponible"}) }}
         </div>
@@ -10,7 +11,7 @@
         </div>
     </div>
     <div class="mb-4">
-        {{ form_row(form.avatarFile,{'label': "Avatar"}) }}
+        {{ form_row(form.avatarFile, {'label': "Avatar"}) }}
     </div>
     <button class="btn btn-success">Sauvegarder</button>
 {{ form_end(form) }}

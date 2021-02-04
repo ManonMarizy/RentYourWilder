@@ -10,9 +10,9 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block header %}
-            {{ render(controller('App\\Controller\\HomeController::addNavBar')) }}
-        {% endblock %}
+    {% block header %}
+        {{ render(controller('App\\Controller\\HomeController::addNavBar')) }}
+    {% endblock %}
 
         {% for label, messages in app.flashes %}
             {% for message in messages %}

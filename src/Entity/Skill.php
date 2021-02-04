@@ -17,17 +17,17 @@ class Skill
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\OneToMany(targetEntity=WilderHasSkill::class, mappedBy="skills")
      */
-    private $wilderHasSkills;
+    private Collection $wilderHasSkills;
 
     public function __construct()
     {
@@ -47,18 +47,6 @@ class Skill
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getWilder(): ?Wilder
-    {
-        return $this->wilder;
-    }
-
-    public function setWilder(?Wilder $wilder): self
-    {
-        $this->wilder = $wilder;
 
         return $this;
     }
@@ -91,5 +79,10 @@ class Skill
         }
 
         return $this;
+    }
+
+    public function __toString(): ?string
+    {
+        return $this->getName();
     }
 }

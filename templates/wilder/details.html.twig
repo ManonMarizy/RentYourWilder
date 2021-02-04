@@ -43,6 +43,9 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center align-items-center ml-sm-5 mr-sm-5 text-justify mt-3">
+            {{ wilder.description }}
+        </div>
         <div class="d-flex justify-content-center align-items-center mt-5">
                 <span class="text-info mr-3">Ce wilder vous a tapé dans l'oeil? Alors si ce n'est pas déjà fait, louez le !</span>
             {% if is_granted('ROLE_USER')%}

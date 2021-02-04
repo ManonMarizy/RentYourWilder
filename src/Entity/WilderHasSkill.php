@@ -27,7 +27,7 @@ class WilderHasSkill
      * @ORM\ManyToOne(targetEntity=Skill::class, inversedBy="wilderHasSkills", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
-    private Skill $skills;
+    private ?Skill $skills;
 
     /**
      * @ORM\Column(type="integer")
