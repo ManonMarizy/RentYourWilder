@@ -1,8 +1,24 @@
+@import "variables.scss";
 @import "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
 
 body {
     font-family: 'Sriracha', cursive;
+    background-color: #000000e8;
+    color: #FFFFFF;
+}
+
+.white-background {
+    color: black;
+    background-color: #FFFFFF;
+}
+
+.table {
+    color: white;
+}
+
+.img-home {
+    width: 75px;
 }
 
 /* navbar */
@@ -27,6 +43,13 @@ body {
 .avatar-img-admin {
     width: 200px;
     border-radius: 10px;
+}
+
+/* card */
+.card {
+    border-radius: 10px;
+    border: 3px solid rgb(71, 20, 255);
+    box-shadow: 5px 5px 5px;
 }
 
 @media screen and (min-width: 768px) {

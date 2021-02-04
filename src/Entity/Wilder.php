@@ -67,7 +67,7 @@ class Wilder
      * @Vich\UploadableField(mapping="avatar_file", fileNameProperty="avatar")
      * @var ?File
      */
-    private  ?File $avatarFile;
+    private  ?File $avatarFile = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -186,8 +186,9 @@ class Wilder
     {
         if ($user) {
             $this->user = $user;
+        } else {
+            $this->user = null;
         }
-        $this->user = null;
     }
 
     public function getAvatar(): ?string
@@ -211,7 +212,7 @@ class Wilder
         return $this;
     }
 
-    public function getAvatarFile(): File
+    public function getAvatarFile(): ?File
     {
         return $this->avatarFile;
     }

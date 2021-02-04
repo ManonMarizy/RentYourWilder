@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Entity\Wilder;
 use App\Repository\UserRepository;
 use App\Repository\WilderRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,14 +89,15 @@ class CartService
      */
     public function valideCart(array $cartWithData, int $id)
     {
-
+        $user = $this->userRepository->findOneBy([
+            'id' => $id
+        ]);
         $cart = $this->session->get('cart', []);
         foreach ($cartWithData as $cartData) {
+            /** @var Wilder $wilder */
             foreach ($cartData as $wilder) {
                 $wilder->setIsAvailable(false);
-                $wilder->setUser($this->userRepository->findOneBy([
-                    'id' => $id
-                ]));
+                $wilder->setUser($user);
                 $this->emi->flush();
                 unset($cart[$wilder->getId()]);
             }
