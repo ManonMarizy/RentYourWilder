@@ -90,7 +90,7 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <a href="#" class="btn btn-primary">Détails</a>
+                            <a href="{{ path('wilder_details', {wilderName: wilder.name}) }}" class="btn btn-primary">Détails</a>
                         </div>
                     </div>
                 {% endif %}
