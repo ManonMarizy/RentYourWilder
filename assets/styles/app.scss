@@ -9,6 +9,8 @@ body {
 .icon-profile-desktop {
     display: none;
 }
+
+/* account */
 .display-account {
     display: flex;
     flex-direction: column;
@@ -20,7 +22,6 @@ body {
     flex-direction: column;
     align-items: center;
 }
-
 
 @media screen and (min-width: 768px) {
     .account-wilders {
