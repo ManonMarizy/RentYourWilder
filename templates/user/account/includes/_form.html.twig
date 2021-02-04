@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_row(form.email, {'attr': {'class': 'input-account mb-3'}}) }}
+    <div class="d-flex flex-column align-items-center">
+        <button class="btn btn-success mb-3" type="submit">Valider les changements</button>
+        <a href="{{ path('mail_reset_password') }}">Changement de mot de passe</a>
+    </div>
+{{ form_end(form) }}

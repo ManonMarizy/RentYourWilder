@@ -3,12 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\WilderRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=WilderRepository::class)
+ * @Vich\Uploadable
  */
 class Wilder
 {
@@ -47,7 +52,28 @@ class Wilder
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="wilders")
      */
-    private User $user;
+    private ?User $user;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $avatar;
+
+    /**
+     * @Assert\Image(
+     *     maxSize = "2048k",
+     *     mimeTypesMessage = "L'image est invalide"
+     * )
+     * @Vich\UploadableField(mapping="avatar_file", fileNameProperty="avatar")
+     * @var ?File
+     */
+    private  ?File $avatarFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var Datetime
+     */
+    private DateTime $updatedAt;
 
     public function __construct()
     {
@@ -154,12 +180,55 @@ class Wilder
     }
 
     /**
-     * @param User $user
+     * @param ?User $user
      */
-    public function setUser(User $user): void
+    public function setUser(?User $user): void
     {
-        $this->user = $user;
+        if ($user) {
+            $this->user = $user;
+        }
+        $this->user = null;
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
 
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function setAvatarFile(File $image = null): Wilder
+    {
+        $this->avatarFile = $image;
+        if ($image) {
+            $this->updatedAt = new DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getAvatarFile(): File
+    {
+        return $this->avatarFile;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     */
+    public function setUpdatedAt(DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
 }

@@ -25,12 +25,12 @@
                                                     {% endif %}
                                                 {% endfor %}
                                                 {% for i in 0..(5 - skills.rate) %}
-                                                {% if i != 0 %}
-                                                    <div class="d-flex align-items-center">
-                                                            <i class="far fa-star"></i>
-                                                        </div>
-                                                {% endif %}
-                                            {% endfor %}
+                                                    {% if i != 0 %}
+                                                        <div class="d-flex align-items-center">
+                                                                <i class="far fa-star"></i>
+                                                            </div>
+                                                    {% endif %}
+                                                {% endfor %}
                                             {% else %}
                                                 {% for i in 1..5 %}
                                                     <div class="d-flex align-items-center">
@@ -42,7 +42,7 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
-                                <a href="#" class="btn btn-primary">Détails</a>
+                                <a href="{{ path('wilder_details', {wilderName: wilder.name}) }}" class="btn btn-primary">Détails</a>
                             </div>
                         </div>
                     {% endfor %}
