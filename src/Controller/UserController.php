@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangeInformationType;
 use App\Form\UserRegistrationType;
+use App\Repository\WilderRepository;
 use App\Service\GenerateTokenService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -91,10 +94,41 @@ class UserController extends AbstractController
             return $this->redirectToRoute('home');
         }
         $user->setIsActivate(true);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->flush();
+         $this->getDoctrine()->getManager()->flush();
         return $this->render('user/register_validation.html.twig', [
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/compte", methods={"POST", "GET"}name="account")
+     * @param WilderRepository $wilderRepository
+     * @param Request $request
+     * @return Response|AccessDeniedHttpException
+     */
+    public function index(WilderRepository $wilderRepository, Request $request)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if(!$user) {
+            return new AccessDeniedHttpException();
+        }
+        $wilders = $wilderRepository->findBy([
+            'user' => $user
+        ]);
+        $form = $this->createForm(ChangeInformationType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Vos informations ont été modifiées');
+            return $this->redirectToRoute('user_account');
+        }
+
+        return $this->render('user/account/index.html.twig', [
+            'wilders' => $wilders,
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 }

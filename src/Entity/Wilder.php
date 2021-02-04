@@ -47,7 +47,7 @@ class Wilder
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="wilders")
      */
-    private User $user;
+    private ?User $user;
 
     public function __construct()
     {
@@ -154,11 +154,14 @@ class Wilder
     }
 
     /**
-     * @param User $user
+     * @param ?User $user
      */
-    public function setUser(User $user): void
+    public function setUser(?User $user): void
     {
-        $this->user = $user;
+        if ($user) {
+            $this->user = $user;
+        }
+        $this->user = null;
     }
 
 
