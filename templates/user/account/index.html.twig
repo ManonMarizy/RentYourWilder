@@ -21,7 +21,7 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5 class="card-title">{{ wilder.name }}</h5>
-                                        <a href="{{ path('strop_renting', {id: wilder.id}) }}" class="btn btn-danger"><i class="fas fa-times fa-2x"></i></a>
+                                        <a href="{{ path('wilder_strop_renting', {id: wilder.id}) }}" class="btn btn-danger"><i class="fas fa-times fa-2x"></i></a>
                                     </div>
                                     <ul>
                                         {% for skills in wilder.wilderHasSkills %}
@@ -41,18 +41,18 @@
                                                         </div>
                                                         {% endif %}
                                                     {% endfor %}
-                                                    {% else %}
-                                                        {% for i in 1..5 %}
-                                                        <div class="d-flex align-items-center">
-                                                        <i class="far fa-star"></i>
-                                                        </div>
-                                                        {% endfor %}
+                                                {% else %}
+                                                    {% for i in 1..5 %}
+                                                    <div class="d-flex align-items-center">
+                                                    <i class="far fa-star"></i>
+                                                    </div>
+                                                    {% endfor %}
                                                 {% endif %}
                                                 </span>
                                             </li>
                                         {% endfor %}
                                     </ul>
-                                    <a href="#" class="btn btn-primary">Détails</a>
+                                    <a href="{{ path('wilder_details', {wilderName: wilder.name}) }}" class="btn btn-primary">Détails</a>
                                 </div>
                             </div>
                         {% endfor %}
