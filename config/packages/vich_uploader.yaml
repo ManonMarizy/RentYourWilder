@@ -3,5 +3,5 @@ vich_uploader:
 
     mappings:
         avatar_file:
-            uri_prefix: /images/avatars
+            uri_prefix: /uploads/avatars
             upload_destination: '%upload_directory%/avatars'
