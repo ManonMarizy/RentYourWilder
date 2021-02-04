@@ -6,6 +6,7 @@ use App\Entity\Wilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class WilderType extends AbstractType
 {
@@ -14,6 +15,11 @@ class WilderType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('avatarFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
             ->add('isAvailable')
             ->add('isEnable')
         ;
