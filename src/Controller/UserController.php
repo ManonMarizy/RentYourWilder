@@ -101,7 +101,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/compte", methods={"POST", "GET"}name="account")
+     * @Route("/compte", methods={"POST", "GET"}, name="account")
      * @param WilderRepository $wilderRepository
      * @param Request $request
      * @return Response|AccessDeniedHttpException
