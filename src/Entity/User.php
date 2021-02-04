@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -34,10 +36,11 @@ class User implements UserInterface
      */
     private string $password;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity=Wilder::class, inversedBy="userId")
+     * @ORM\OneToMany(targetEntity=Wilder::class, mappedBy="user")
      */
-    private Wilder $wilder;
+    private Collection $wilders;
 
     /**
      * @ORM\Column(type="boolean", options={"default":0})
@@ -48,6 +51,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private string $token;
+
+    public function __construct()
+    {
+        $this->wilders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,21 +135,6 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Wilder
-     */
-    public function getWilder(): Wilder
-    {
-        return $this->wilder;
-    }
-
-    /**
-     * @param Wilder $wilder
-     */
-    public function setWilder(Wilder $wilder): void
-    {
-        $this->wilder = $wilder;
-    }
 
     public function getIsActivate(): ?bool
     {
@@ -166,4 +159,43 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return ArrayCollection|Collection
+     */
+    public function getWilders()
+    {
+        return $this->wilders;
+    }
+
+    /**
+     * @param ArrayCollection|Collection $wilders
+     */
+    public function setWilders($wilders): void
+    {
+        $this->wilders = $wilders;
+    }
+
+    public function addWilder(Wilder $wilder): self
+    {
+        if (!$this->wilders->contains($wilder)) {
+            $this->wilders[] = $wilder;
+            $wilder->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWilder(Wilder $wilder): self
+    {
+        if ($this->wilders->removeElement($wilder)) {
+            // set the owning side to null (unless already changed)
+            if ($wilder->getUser() === $this) {
+                $wilder->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -45,14 +45,13 @@ class Wilder
     private Collection $wilderHasSkills;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="wilder")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="wilders")
      */
-    private Collection $userId;
+    private User $user;
 
     public function __construct()
     {
         $this->wilderHasSkills = new ArrayCollection();
-        $this->userId = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,32 +146,20 @@ class Wilder
     }
 
     /**
-     * @return Collection|User[]
+     * @return User
      */
-    public function getUserId(): Collection
+    public function getUser(): User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function addUserId(User $userId): self
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
     {
-        if (!$this->userId->contains($userId)) {
-            $this->userId[] = $userId;
-            $userId->setWilder($this);
-        }
-
-        return $this;
+        $this->user = $user;
     }
 
-    public function removeUserId(User $userId): self
-    {
-        if ($this->userId->removeElement($userId)) {
-            // set the owning side to null (unless already changed)
-            if ($userId->getWilder() === $this) {
-                $userId->setWilder(null);
-            }
-        }
 
-        return $this;
-    }
 }
