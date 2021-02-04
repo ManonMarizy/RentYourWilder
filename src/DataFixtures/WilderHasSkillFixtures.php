@@ -5,12 +5,10 @@ namespace App\DataFixtures;
 use App\Entity\WilderHasSkill;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class WilderHasSkillFixtures extends Fixture implements DependentFixtureInterface
 {
-
     const RATESPERWILDER = [
         1 => [
             1 => [
