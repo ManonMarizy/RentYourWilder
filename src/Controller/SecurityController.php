@@ -87,13 +87,13 @@ class SecurityController extends AbstractController
                 $this->addFlash('success', 'Votre email est inconnu');
                 return $this->redirectToRoute("mail_reset_password");
             }
-            $user->setActivationToken(GenerateTokenService::generateToken());
+            $user->setToken(GenerateTokenService::generateToken());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
             $email = (new Email())
                 ->from($mailerFromAddress)
                 ->to($email['email'])
-                ->subject('Réinitialisation du mot de passe pour des Quizz & TP')
+                ->subject('Réinitialisation du mot de passe pour Loue ton Wilder')
                 ->html($this->renderView('mail/reset_password_mail.html.twig', [
                     'user' => $user
                 ]));
